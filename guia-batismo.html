@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia do Batismo</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --card: #1e2335;
+    --accent: #6ec6f5;
+    --gold: #f5c842;
+    --text: #e8eaf2;
+    --muted: #8892a4;
+    --border: rgba(110,198,245,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  .hero {
+    position: relative;
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    background: radial-gradient(ellipse at top, #1a2a4a 0%, var(--bg) 70%);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(110,198,245,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(110,198,245,0.1);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 2.2rem;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 0.6rem;
+  }
+
+  .hero h1 em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .hero p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    max-width: 280px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .duration {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.2rem;
+    background: rgba(245,200,66,0.08);
+    border: 1px solid rgba(245,200,66,0.2);
+    color: var(--gold);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+  }
+
+  /* Content */
+  .content {
+    padding: 1.5rem 1.2rem 4rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* Section card */
+  .section {
+    margin-bottom: 1.2rem;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--card);
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.1rem 1.2rem;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .section-icon {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .section-meta { flex: 1; }
+
+  .section-number {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.15rem;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .section-time {
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    color: var(--muted);
+    background: rgba(255,255,255,0.05);
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+
+  .section-body {
+    padding: 0 1.2rem 1.2rem;
+    display: none;
+  }
+
+  .section.open .section-body {
+    display: block;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 1.1rem;
+  }
+
+  /* Blocks inside section */
+  .concept {
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .block {
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.84rem;
+    line-height: 1.6;
+  }
+
+  .block-dinamica {
+    background: rgba(110,198,245,0.06);
+    border-left: 3px solid var(--accent);
+  }
+  .block-dinamica .block-label { color: var(--accent); }
+
+  .block-verse {
+    background: rgba(245,200,66,0.06);
+    border-left: 3px solid var(--gold);
+  }
+  .block-verse .block-label { color: var(--gold); }
+
+  .block-question {
+    background: rgba(160,120,220,0.07);
+    border-left: 3px solid #a87fdc;
+  }
+  .block-question .block-label { color: #a87fdc; }
+
+  .block-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .block p { color: var(--text); }
+
+  /* Verse text */
+  .verse-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: #d4b84a;
+    line-height: 1.55;
+    margin-bottom: 0.3rem;
+  }
+
+  .verse-ref {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* List */
+  .custom-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+  }
+
+  .custom-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.84rem;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  .list-bullet {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: rgba(110,198,245,0.12);
+    border: 1px solid rgba(110,198,245,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-top: 1px;
+  }
+
+  .symbol-bullet {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    background: rgba(110,198,245,0.07);
+    margin-top: -2px;
+  }
+
+  /* Tips card */
+  .tips-card {
+    margin-top: 1.2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(245,200,66,0.15);
+    background: rgba(245,200,66,0.04);
+    overflow: hidden;
+    animation: fadeUp 0.4s ease 0.3s both;
+  }
+
+  .tips-header {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid rgba(245,200,66,0.1);
+  }
+
+  .tips-header span:first-child { font-size: 1.1rem; }
+
+  .tips-header strong {
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem;
+    color: var(--gold);
+  }
+
+  .tips-body {
+    padding: 1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .tip-item {
+    display: flex;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  .tip-icon { flex-shrink: 0; font-size: 0.9rem; margin-top: 1px; }
+
+  /* Next step */
+  .next-step {
+    margin-top: 1.2rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #1a2a4a 0%, #1e2335 100%);
+    border: 1px solid rgba(110,198,245,0.2);
+    padding: 1.2rem;
+    animation: fadeUp 0.4s ease 0.35s both;
+  }
+
+  .next-step h3 {
+    font-family: 'Fraunces', serif;
+    color: var(--accent);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .next-step p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Toggle arrow */
+  .arrow {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.25s ease;
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 0.7rem;
+  }
+
+  .section.open .arrow {
+    transform: rotate(180deg);
+  }
+
+  /* Color themes per section */
+  .s1 .section-icon { background: rgba(110,198,245,0.1); }
+  .s2 .section-icon { background: rgba(245,200,66,0.1); }
+  .s3 .section-icon { background: rgba(160,120,220,0.1); }
+  .s4 .section-icon { background: rgba(80,200,160,0.1); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">Preparação para o Batismo</div>
+  <h1>Mini Discurso<br>de <em>Discipulado</em></h1>
+  <p>Um guia pocket para adolescentes sobre fé, compromisso e o batismo.</p>
+  <div class="duration">⏱ 40 minutos</div>
+</div>
+
+<div class="content">
+
+  <!-- Section 1 -->
+  <div class="section s1 open" onclick="toggle(this)">
+    <div class="section-header">
+      <div class="section-icon">🔋</div>
+      <div class="section-meta">
+        <div class="section-number">Parte 1</div>
+        <div class="section-title">O "Match" com Deus</div>
+      </div>
+      <div class="section-time">5 min</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-body">
+      <div class="divider"></div>
+      <p class="concept">Deus criou o ser humano para ter um relacionamento com Ele, mas o pecado estragou essa conexão.</p>
+
+      <div class="block block-dinamica">
+        <div class="block-label">💡 Dinâmica</div>
+        <p>Pense em um celular sem bateria ou sem sinal — ele perde a função principal. Assim é a vida sem Deus.</p>
+      </div>
+
+      <div class="block block-verse">
+        <div class="block-label">📖 Base Bíblica</div>
+        <div class="verse-text">"Pois todos pecaram e estão destituídos da glória de Deus."</div>
+        <div class="verse-ref">Romanos 3:23</div>
+      </div>
+
+      <div class="block block-question">
+        <div class="block-label">💬 Pergunta Chave</div>
+        <p>"Vocês já sentiram que falta algo, mesmo quando tudo parece bem?"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section s2" onclick="toggle(this)">
+    <div class="section-header">
+      <div class="section-icon">✝️</div>
+      <div class="section-meta">
+        <div class="section-number">Parte 2</div>
+        <div class="section-title">Jesus, o Caminho</div>
+      </div>
+      <div class="section-time">10 min</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-body">
+      <div class="divider"></div>
+      <p class="concept">Jesus não foi apenas um "bom homem" histórico — Ele é Deus e veio para resolver a nossa "dívida".</p>
+
+      <div class="block block-dinamica">
+        <div class="block-label">💡 Explicação Prática</div>
+        <p>O pecado é como uma dívida que não podemos pagar. Jesus foi o "Cordeiro de Deus" que pagou essa conta na cruz. A salvação é um <strong>presente</strong> (graça), não algo que compramos sendo "bonzinhos".</p>
+      </div>
+
+      <div class="block block-verse">
+        <div class="block-label">📖 João 1:29</div>
+        <div class="verse-text">"No dia seguinte, João viu Jesus se aproximando e disse: 'Olhem! O Cordeiro de Deus, que tira o pecado do mundo!'"</div>
+        <div class="verse-ref">João 1:29</div>
+      </div>
+
+      <div class="block block-verse">
+        <div class="block-label">📖 João 14:6</div>
+        <div class="verse-text">"Eu sou o caminho, a verdade e a vida. Ninguém vem ao Pai, a não ser por mim."</div>
+        <div class="verse-ref">João 14:6</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section s3" onclick="toggle(this)">
+    <div class="section-header">
+      <div class="section-icon">🌱</div>
+      <div class="section-meta">
+        <div class="section-number">Parte 3</div>
+        <div class="section-title">A Nova Vida</div>
+      </div>
+      <div class="section-time">10 min</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-body">
+      <div class="divider"></div>
+      <p class="concept">Seguir a Jesus exige uma escolha real e uma mudança de mentalidade — ser um "aprendiz" que renuncia ao que o afasta de Deus.</p>
+
+      <div class="block block-dinamica">
+        <div class="block-label">💡 O "Velho Homem" vs o "Novo Homem"</div>
+        <ul class="custom-list">
+          <li>
+            <div class="symbol-bullet">😤</div>
+            <span><strong>Velho:</strong> egoísmo, mentira, ódio</span>
+          </li>
+          <li>
+            <div class="symbol-bullet">❤️</div>
+            <span><strong>Novo:</strong> amor, paz, domínio próprio</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block block-verse">
+        <div class="block-label">📖 Efésios 4:22-24</div>
+        <div class="verse-text">"Quanto ao trato passado, despojaste do velho homem, que se corrompe pelas concupiscências do engano, e renovar-vos no espírito da vossa mente, e revestir o novo homem, que segundo Deus é criado em verdadeira justiça e santidade."</div>
+        <div class="verse-ref">Efésios 4:22-24</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section s4" onclick="toggle(this)">
+    <div class="section-header">
+      <div class="section-icon">💧</div>
+      <div class="section-meta">
+        <div class="section-number">Parte 4</div>
+        <div class="section-title">O Batismo: Seu "Post" Público</div>
+      </div>
+      <div class="section-time">15 min</div>
+      <div class="arrow">▼</div>
+    </div>
+    <div class="section-body">
+      <div class="divider"></div>
+      <p class="concept">O batismo não salva, mas é a forma de dizer ao mundo que você agora pertence a Jesus.</p>
+
+      <div class="block block-dinamica">
+        <div class="block-label">💡 O Significado dos Gestos</div>
+        <ul class="custom-list">
+          <li>
+            <div class="symbol-bullet">⬇️</div>
+            <span><strong>Mergulhar (Imersão):</strong> seu "velho eu" morreu e foi enterrado com Cristo.</span>
+          </li>
+          <li>
+            <div class="symbol-bullet">⬆️</div>
+            <span><strong>Sair da Água (Emersão):</strong> você ressuscitou para uma vida nova e limpa.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block block-dinamica" style="background:rgba(80,200,160,0.06); border-color:#50c8a0;">
+        <div class="block-label" style="color:#50c8a0;">✅ Requisitos para o Batismo</div>
+        <ul class="custom-list">
+          <li>
+            <div class="list-bullet" style="color:#50c8a0; background:rgba(80,200,160,0.1); border-color:rgba(80,200,160,0.3);">1</div>
+            <span><strong>Crer</strong> de todo o coração</span>
+          </li>
+          <li>
+            <div class="list-bullet" style="color:#50c8a0; background:rgba(80,200,160,0.1); border-color:rgba(80,200,160,0.3);">2</div>
+            <span><strong>Arrepender-se</strong> — decidir mudar de direção</span>
+          </li>
+          <li>
+            <div class="list-bullet" style="color:#50c8a0; background:rgba(80,200,160,0.1); border-color:rgba(80,200,160,0.3);">3</div>
+            <span><strong>Viver em novidade de vida</strong></span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block block-verse">
+        <div class="block-label">📖 A Ordem de Jesus</div>
+        <div class="verse-text">"Portanto, ide, fazei discípulos de todas as nações, batizando-os em nome do Pai, e do Filho, e do Espírito Santo."</div>
+        <div class="verse-ref">Mateus 28:19</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips -->
+  <div class="tips-card">
+    <div class="tips-header">
+      <span>📝</span>
+      <strong>Guia para o Facilitador</strong>
+    </div>
+    <div class="tips-body">
+      <div class="tip-item">
+        <span class="tip-icon">💬</span>
+        <span><strong>Linguagem:</strong> Evite termos teológicos pesados. Use analogias do dia a dia — redes sociais, games, escola.</span>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">📖</span>
+        <span><strong>Bíblia:</strong> Incentive-os a abrir e ler os versículos em voz alta. Isso gera familiaridade com o Livro.</span>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">🕊️</span>
+        <span><strong>Decisão deles:</strong> Deus respeita o livre-arbítrio. O batismo é uma decisão de amor e compromisso, nunca obrigação.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next Step -->
+  <div class="next-step">
+    <h3>🚀 Próximo Passo</h3>
+    <p>Se eles se sentirem prontos, ajude-os a fazer uma <strong>oração de entrega e compromisso</strong>, ou agende uma conversa com o pastor para formalizar o pedido de batismo.</p>
+  </div>
+
+</div>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
